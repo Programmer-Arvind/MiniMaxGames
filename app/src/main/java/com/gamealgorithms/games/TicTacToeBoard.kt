@@ -49,6 +49,17 @@ class TicTacToeBoard(
         return board[x][y]
     }
 
+    fun nextPlayer(): TicTacToePlayer {
+        var countX = 0
+        var countO = 0
+        for (num in board.flatten()) {
+            if (num == 1) countX++
+            if (num == -1) countO++
+        }
+        if (countX == countO) return TicTacToePlayer.X
+        return TicTacToePlayer.O
+    }
+
     override fun toString(): String {
         var output = ""
         for (row in board) {
