@@ -1,6 +1,5 @@
-package com.example.gamealgorithms.game
+package com.gamealgorithms.games
 
-import com.gamealgorithms.game.TicTacToeBoard
 import junit.framework.TestCase.assertFalse
 import org.junit.Test
 import kotlin.test.DefaultAsserter.assertEquals

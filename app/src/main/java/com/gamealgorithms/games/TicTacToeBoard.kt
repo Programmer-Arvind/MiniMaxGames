@@ -1,4 +1,4 @@
-package com.gamealgorithms.game
+package com.gamealgorithms.games
 
 class TicTacToeBoard(
     val board: Array<Array<Int>> = Array(3) { Array(3) { 0 } }
@@ -24,7 +24,7 @@ class TicTacToeBoard(
             // Rows
             for (row in board) {
                 if (row.distinct().size == 1 && !row.any { it == 0 }) {
-                    return row[0];
+                    return row[0]
                 }
             }
             // Columns
@@ -43,6 +43,10 @@ class TicTacToeBoard(
 
     fun placeO(x: Int, y: Int) {
         board[x][y] = -1
+    }
+
+    fun getIndex(x:Int, y:Int) : Int {
+        return board[x][y]
     }
 
     override fun toString(): String {

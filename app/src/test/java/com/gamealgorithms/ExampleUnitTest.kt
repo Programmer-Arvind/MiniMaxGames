@@ -1,4 +1,4 @@
-package com.example.gamealgorithms
+package com.gamealgorithms
 
 import org.junit.Test
 
