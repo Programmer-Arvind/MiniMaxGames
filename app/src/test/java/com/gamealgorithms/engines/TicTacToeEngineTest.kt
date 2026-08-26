@@ -34,7 +34,7 @@ class TicTacToeEngineTest {
     }
 
     @Test
-    fun playerXBestMoveOfThreeMovesAvailable() {
+    fun playerXWinMoveOfThreeMovesAvailable() {
         val board = TicTacToeBoard()
         // X player 1,2
         board.placeX(0, 0)
@@ -48,7 +48,7 @@ class TicTacToeEngineTest {
 //        _ o o
 
         val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove())
+        assertEquals(listOf(1, 2, 1), ticTacToeEngine.findBestMove())
         // Y Player 1, 2
         /*board.placeO(0, 0)
         board.placeO(0, 1)
@@ -72,7 +72,7 @@ class TicTacToeEngineTest {
     }
 
     @Test
-    fun playerOBestMoveOfThreeMovesAvailable() {
+    fun playerXWinMoveOfThreeMovesAvailable2() {
         val board = TicTacToeBoard()
         board.placeO(0, 0)
         board.placeO(0, 1)
@@ -85,7 +85,7 @@ class TicTacToeEngineTest {
         // _ _ x
 
         val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove())
+        assertEquals(listOf(1, 2, 1), ticTacToeEngine.findBestMove())
     }
 
     @Test
@@ -102,7 +102,7 @@ class TicTacToeEngineTest {
         // _ _ o
 
         val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(2, 1), ticTacToeEngine.findBestMove())
+        assertEquals(listOf(2, 1, 1), ticTacToeEngine.findBestMove())
     }
 
     @Test
@@ -113,13 +113,47 @@ class TicTacToeEngineTest {
         board.placeX(1, 0)
         board.placeO(1, 1)
         board.placeO(1, 2)
-        board.placeO(2, 0)
+        board.placeX(2, 0)
         board.placeX(2, 2)
         // o _ x
         // x o o
-        // o _ x
+        // x _ x
 
         val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(2, 1), ticTacToeEngine.findBestMove())
+        assertEquals(listOf(2, 1, 0), ticTacToeEngine.findBestMove())
+    }
+
+    @Test
+    fun playerOWinOfTwoMovesAvailable() {
+        val board = TicTacToeBoard()
+        board.placeO(0, 0)
+        board.placeX(0, 1)
+        board.placeX(1, 0)
+        board.placeO(1, 1)
+        board.placeO(2, 0)
+        board.placeX(2, 1)
+        board.placeX(2, 2)
+        // o x _
+        // x o _
+        // o x x
+        val ticTacToeEngine = TicTacToeEngine(board)
+        assertEquals(listOf(0,2,-1), ticTacToeEngine.findBestMove())
+    }
+
+    @Test
+    fun playerOWinOfTwoMovesAvailable2() {
+        val board = TicTacToeBoard()
+        board.placeO(0, 0)
+        board.placeX(0, 1)
+        board.placeO(0, 2)
+        board.placeX(1, 1)
+        board.placeX(1, 2)
+        board.placeO(2, 0)
+        board.placeX(2, 2)
+        // o x o
+        // _ x x
+        // o _ x
+        val ticTacToeEngine = TicTacToeEngine(board)
+        assertEquals(listOf(1, 0, -1), ticTacToeEngine.findBestMove())
     }
 }

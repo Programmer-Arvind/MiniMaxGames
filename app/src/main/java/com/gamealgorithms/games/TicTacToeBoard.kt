@@ -67,4 +67,12 @@ class TicTacToeBoard(
         }
         return output
     }
+
+    fun copy(): TicTacToeBoard {
+        val copiedBoard = Array(board.size) { row ->
+            board[row].clone()
+        }
+
+        return TicTacToeBoard(copiedBoard)
+    }
 }

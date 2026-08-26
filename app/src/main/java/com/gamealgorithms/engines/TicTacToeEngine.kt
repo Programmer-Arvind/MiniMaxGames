@@ -15,37 +15,48 @@ class TicTacToeEngine(private val board: TicTacToeBoard) {
         }
         return available
     }
-    fun findBestMove(): List<Int> {
+    /**
+     * @return [x, y, bestScore]
+     */
+    fun findBestMove(): MutableList<Int> {
         val availableMoves = getAvailableMoves()
-        print(availableMoves)
+
+        val result = board.result()
+        if (result != null) {
+            return mutableListOf(-1, -1, result)
+        }
+
         if (board.nextPlayer() == TicTacToePlayer.X) {
             var maxScore = Int.MIN_VALUE
-            var maxMove: List<Int> = availableMoves[0]
+            val maxMove: MutableList<Int> = mutableListOf(-1, -1)
             for (move in availableMoves) {
-                val tempBoard = board
+                val tempBoard = board.copy()
                 tempBoard.placeX(move[0], move[1])
-                tempBoard.result()?.let {
-                    if (it > maxScore) {
-                        maxScore = it
-                        maxMove = move
-                    }
+                // if board returns result, continue computing else return result
+                val score = tempBoard.result() ?: TicTacToeEngine(tempBoard).findBestMove()[2]
+                if (score > maxScore) {
+                    maxScore = score
+                    maxMove[0] = move[0]
+                    maxMove[1] = move[1]
                 }
             }
+            maxMove.add(maxScore)
             return maxMove
         }
         else {
             var minScore = Int.MAX_VALUE
-            var minMove: List<Int> = availableMoves[0]
+            val minMove: MutableList<Int> = mutableListOf(-1, -1)
             for (move in availableMoves) {
-                val tempBoard = board
+                val tempBoard = board.copy()
                 tempBoard.placeO(move[0], move[1])
-                tempBoard.result()?.let {
-                    if (it < minScore) {
-                        minScore = it
-                        minMove = move
-                    }
+                val score = tempBoard.result() ?: TicTacToeEngine(tempBoard).findBestMove()[2]
+                if (score < minScore) {
+                    minScore = score
+                    minMove[0] = move[0]
+                    minMove[1] = move[1]
                 }
             }
+            minMove.add(minScore)
             return minMove
         }
     }
