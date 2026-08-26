@@ -30,39 +30,30 @@ class TicTacToeEngine(private val board: TicTacToeBoard) {
             }
             return mutableListOf(-1, -1, score)
         }
+        val isX = board.nextPlayer() == TicTacToePlayer.X
+        var bestScore = if (isX) Int.MIN_VALUE else Int.MAX_VALUE
+        val bestMove = mutableListOf(-1, -1)
 
-        if (board.nextPlayer() == TicTacToePlayer.X) {
-            var maxScore = Int.MIN_VALUE
-            val maxMove: MutableList<Int> = mutableListOf(-1, -1)
-            for (move in availableMoves) {
-                val tempBoard = board.copy()
-                tempBoard.placeX(move[0], move[1])
-                // if board returns result, continue computing else return result
-                val score = TicTacToeEngine(tempBoard).findBestMove(depth + 1)[2]
-                if (score > maxScore) {
-                    maxScore = score
-                    maxMove[0] = move[0]
-                    maxMove[1] = move[1]
+        for (move in availableMoves) {
+            val tempBoard = board.copy()
+            if (isX) tempBoard.placeX(move[0], move[1]) else tempBoard.placeO(move[0], move[1])
+
+            val score = TicTacToeEngine(tempBoard).findBestMove(depth + 1)[2]
+            if (isX) {
+                if (score > bestScore) {
+                    bestScore = score
+                    bestMove[0] = move[0]
+                    bestMove[1] = move[1]
+                }
+            } else {
+                if (score < bestScore) {
+                    bestScore = score
+                    bestMove[0] = move[0]
+                    bestMove[1] = move[1]
                 }
             }
-            maxMove.add(maxScore)
-            return maxMove
         }
-        else {
-            var minScore = Int.MAX_VALUE
-            val minMove: MutableList<Int> = mutableListOf(-1, -1)
-            for (move in availableMoves) {
-                val tempBoard = board.copy()
-                tempBoard.placeO(move[0], move[1])
-                val score = TicTacToeEngine(tempBoard).findBestMove(depth + 1)[2]
-                if (score < minScore) {
-                    minScore = score
-                    minMove[0] = move[0]
-                    minMove[1] = move[1]
-                }
-            }
-            minMove.add(minScore)
-            return minMove
-        }
+        bestMove.add(bestScore)
+        return bestMove
     }
 }
