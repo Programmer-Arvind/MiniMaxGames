@@ -18,12 +18,17 @@ class TicTacToeEngine(private val board: TicTacToeBoard) {
     /**
      * @return [x, y, bestScore]
      */
-    fun findBestMove(): MutableList<Int> {
+    fun findBestMove(depth: Int = 0): MutableList<Int> {
         val availableMoves = getAvailableMoves()
 
         val result = board.result()
         if (result != null) {
-            return mutableListOf(-1, -1, result)
+            val score = when {
+                result > 0 -> result*10 - depth
+                result < 0 -> result*10 + depth
+                else -> 0
+            }
+            return mutableListOf(-1, -1, score)
         }
 
         if (board.nextPlayer() == TicTacToePlayer.X) {
@@ -33,7 +38,7 @@ class TicTacToeEngine(private val board: TicTacToeBoard) {
                 val tempBoard = board.copy()
                 tempBoard.placeX(move[0], move[1])
                 // if board returns result, continue computing else return result
-                val score = tempBoard.result() ?: TicTacToeEngine(tempBoard).findBestMove()[2]
+                val score = TicTacToeEngine(tempBoard).findBestMove(depth + 1)[2]
                 if (score > maxScore) {
                     maxScore = score
                     maxMove[0] = move[0]
@@ -49,7 +54,7 @@ class TicTacToeEngine(private val board: TicTacToeBoard) {
             for (move in availableMoves) {
                 val tempBoard = board.copy()
                 tempBoard.placeO(move[0], move[1])
-                val score = tempBoard.result() ?: TicTacToeEngine(tempBoard).findBestMove()[2]
+                val score = TicTacToeEngine(tempBoard).findBestMove(depth + 1)[2]
                 if (score < minScore) {
                     minScore = score
                     minMove[0] = move[0]
