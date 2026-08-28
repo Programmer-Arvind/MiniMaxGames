@@ -11,8 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.gamealgorithms.games.TicTacToeBoard
 import com.gamealgorithms.ui.TicTacToeBoardUI
+import com.gamealgorithms.ui.TicTacToeViewModel
 import com.gamealgorithms.ui.theme.GameAlgorithmsTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,8 +22,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             GameAlgorithmsTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val ticTacToeBoard = TicTacToeBoard()
-                    TicTacToeBoardUI(ticTacToeBoard, Modifier.padding(innerPadding))
+                    val ticTacToeViewModel = TicTacToeViewModel()
+                    TicTacToeBoardUI(ticTacToeViewModel, Modifier.padding(innerPadding))
                 }
             }
         }

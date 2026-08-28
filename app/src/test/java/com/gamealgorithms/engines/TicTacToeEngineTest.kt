@@ -172,4 +172,13 @@ class TicTacToeEngineTest {
         val ticTacToeEngine = TicTacToeEngine(board)
         assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove().subList(0, 2))
     }
+
+    @Test
+    fun playerOFirstMove() {
+        val board = TicTacToeBoard()
+        board.placeX(1, 1)
+
+        val ticTacToeEngine = TicTacToeEngine(board)
+        print(ticTacToeEngine.findBestMove())
+    }
 }
