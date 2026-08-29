@@ -43,7 +43,7 @@ fun TicTacToeBoardUI(viewModel: TicTacToeViewModel,
                         .border(2.dp, Color.White)
                         .aspectRatio(1f)
                         .padding(4.dp)
-                        .clickable(enabled = !viewModel.isThinking) {
+                        .clickable(enabled = !viewModel.isThinking && viewModel.isCellEmpty(index/3, index%3)) {
                             viewModel.placeX(index/3, index%3)
                         },
                     contentAlignment = Alignment.Center,

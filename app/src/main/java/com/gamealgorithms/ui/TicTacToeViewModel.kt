@@ -16,6 +16,7 @@ class TicTacToeViewModel: ViewModel() {
     var board by mutableStateOf(TicTacToeBoard())
         private set
 
+    private val engine = TicTacToeEngine()
     var isGameOver by mutableStateOf(false)
         private set
 
@@ -30,9 +31,8 @@ class TicTacToeViewModel: ViewModel() {
         board = board.copy()
         viewModelScope.launch {
             isThinking = true
-            val engine = TicTacToeEngine(board)
             val bestMove = withContext(Dispatchers.Default)
-                {engine.findBestMove()}
+                {engine.findBestMove(board)}
             if (!isGameOver && !board.isFull()) {
                 board.placeO(bestMove[0], bestMove[1])
                 board = board.copy()
@@ -49,6 +49,10 @@ class TicTacToeViewModel: ViewModel() {
             }
             isThinking = false
         }
+    }
+
+    fun isCellEmpty(row:Int, col: Int): Boolean {
+        return board.board[row][col] == 0
     }
 
     fun resetGame() {

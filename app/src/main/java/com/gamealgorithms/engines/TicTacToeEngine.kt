@@ -3,8 +3,8 @@ package com.gamealgorithms.engines
 import com.gamealgorithms.games.TicTacToeBoard
 import com.gamealgorithms.games.TicTacToePlayer
 
-class TicTacToeEngine(private val board: TicTacToeBoard) {
-    fun getAvailableMoves(): MutableList<List<Int>> {
+class TicTacToeEngine() {
+    fun getAvailableMoves(board: TicTacToeBoard): MutableList<List<Int>> {
         val available: MutableList<List<Int>> = mutableListOf()
         for (i in 0 until 3) {
             for (j in 0 until 3) {
@@ -18,8 +18,8 @@ class TicTacToeEngine(private val board: TicTacToeBoard) {
     /**
      * @return [x, y, bestScore]
      */
-    fun findBestMove(depth: Int = 0): MutableList<Int> {
-        val availableMoves = getAvailableMoves()
+    fun findBestMove(board: TicTacToeBoard, depth: Int = 0): MutableList<Int> {
+        val availableMoves = getAvailableMoves(board)
 
         val result = board.result()
         if (result != null) {
@@ -38,7 +38,7 @@ class TicTacToeEngine(private val board: TicTacToeBoard) {
             val tempBoard = board.copy()
             if (isX) tempBoard.placeX(move[0], move[1]) else tempBoard.placeO(move[0], move[1])
 
-            val score = TicTacToeEngine(tempBoard).findBestMove(depth + 1)[2]
+            val score = findBestMove(tempBoard, depth + 1)[2]
             if (isX) {
                 if (score > bestScore) {
                     bestScore = score
