@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,7 +33,7 @@ fun TicTacToeBoardUI(viewModel: TicTacToeViewModel,
     ) {
         val board = viewModel.board
         LazyVerticalGrid(
-            columns = GridCells.Fixed(3)
+            columns = GridCells.Fixed(3),
         ) {
             items(9) { index ->
                 Box(
@@ -42,7 +43,7 @@ fun TicTacToeBoardUI(viewModel: TicTacToeViewModel,
                         .border(2.dp, Color.White)
                         .aspectRatio(1f)
                         .padding(4.dp)
-                        .clickable {
+                        .clickable(enabled = !viewModel.isThinking) {
                             viewModel.placeX(index/3, index%3)
                         },
                     contentAlignment = Alignment.Center,
@@ -51,6 +52,9 @@ fun TicTacToeBoardUI(viewModel: TicTacToeViewModel,
                         text = boardNumToSymbol(board.board[index/3][index%3]),
                         color = Color.White
                     )
+                    if (viewModel.isThinking && index == 4) {
+                        CircularProgressIndicator()
+                    }
                 }
             }
         }

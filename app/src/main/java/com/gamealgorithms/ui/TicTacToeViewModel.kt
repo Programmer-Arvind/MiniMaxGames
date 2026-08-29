@@ -17,12 +17,19 @@ class TicTacToeViewModel: ViewModel() {
         private set
 
     var isGameOver by mutableStateOf(false)
+        private set
+
+    var isThinking by mutableStateOf(false)
+        private set
+
     var winner by mutableStateOf<String?>(null)
+        private set
 
     fun placeX(row: Int, col: Int) {
         board.placeX(row, col)
         board = board.copy()
         viewModelScope.launch {
+            isThinking = true
             val engine = TicTacToeEngine(board)
             val bestMove = withContext(Dispatchers.Default)
                 {engine.findBestMove()}
@@ -40,6 +47,7 @@ class TicTacToeViewModel: ViewModel() {
                 }
                 board = TicTacToeBoard()
             }
+            isThinking = false
         }
     }
 
