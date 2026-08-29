@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -52,6 +54,27 @@ fun TicTacToeBoardUI(viewModel: TicTacToeViewModel,
                 }
             }
         }
+    }
+
+    if (viewModel.isGameOver) {
+        AlertDialog(
+            onDismissRequest = { },
+            title = {
+                Text(text = "Game Over")
+            },
+            text = {
+                Text(text = if (viewModel.winner != null) "${viewModel.winner} Wins!" else "It's a Draw!")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        viewModel.resetGame()
+                    }
+                ) {
+                    Text("Play Again")
+                }
+            }
+        )
     }
 }
 

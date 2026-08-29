@@ -1,5 +1,6 @@
 package com.gamealgorithms.ui
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,16 +16,36 @@ class TicTacToeViewModel: ViewModel() {
     var board by mutableStateOf(TicTacToeBoard())
         private set
 
+    var isGameOver by mutableStateOf(false)
+    var winner by mutableStateOf<String?>(null)
+
     fun placeX(row: Int, col: Int) {
         board.placeX(row, col)
+        board = board.copy()
         viewModelScope.launch {
             val engine = TicTacToeEngine(board)
             val bestMove = withContext(Dispatchers.Default)
                 {engine.findBestMove()}
-            board.placeO(bestMove[0], bestMove[1])
-            print(board)
-            board = board.copy()
+            if (!isGameOver && !board.isFull()) {
+                board.placeO(bestMove[0], bestMove[1])
+                board = board.copy()
+            }
+            if (board.result() != null) {
+                isGameOver = true
+                Log.i("MYTAG", "${board.result()}")
+                winner = when(board.result()) {
+                    1 -> "X"
+                    -1 -> "O"
+                    else -> null
+                }
+                board = TicTacToeBoard()
+            }
         }
+    }
+
+    fun resetGame() {
+        isGameOver = false
+        winner = null
 
     }
 
