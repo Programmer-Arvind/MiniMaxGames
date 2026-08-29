@@ -20,6 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gamealgorithms.games.TicTacToeBoard
@@ -27,6 +29,7 @@ import com.gamealgorithms.games.TicTacToeBoard
 @Composable
 fun TicTacToeBoardUI(viewModel: TicTacToeViewModel,
                      modifier: Modifier = Modifier) {
+    val haptic = LocalHapticFeedback.current
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
@@ -44,6 +47,7 @@ fun TicTacToeBoardUI(viewModel: TicTacToeViewModel,
                         .aspectRatio(1f)
                         .padding(4.dp)
                         .clickable(enabled = !viewModel.isThinking && viewModel.isCellEmpty(index/3, index%3)) {
+                            haptic.performHapticFeedback(HapticFeedbackType.KeyboardTap)
                             viewModel.placeX(index/3, index%3)
                         },
                     contentAlignment = Alignment.Center,
@@ -61,6 +65,7 @@ fun TicTacToeBoardUI(viewModel: TicTacToeViewModel,
     }
 
     if (viewModel.isGameOver) {
+        LocalHapticFeedback.current.performHapticFeedback(HapticFeedbackType.LongPress)
         AlertDialog(
             onDismissRequest = { },
             title = {
