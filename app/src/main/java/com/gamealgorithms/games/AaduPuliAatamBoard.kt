@@ -54,4 +54,26 @@ class AaduPuliAatamBoard {
         21 to listOf(Pair(20, 19), Pair(16, 10)),
         22 to listOf(Pair(17, 11))
     )
+    private var boardState = BoardState.POSITIONING
+    private var goatsLeftToPlace = 15
+
+    /**
+     * @return true if valid placement else false
+     */
+    fun placeGoat(position: Int): Boolean {
+        if (goatsLeftToPlace > 0 && board[position] == 0) {
+            board[position] = 1
+            goatsLeftToPlace--
+            return true
+        }
+        if (goatsLeftToPlace == 0) {
+            boardState = BoardState.MOVEMENT
+        }
+        return false
+    }
+}
+
+enum class BoardState {
+    POSITIONING,
+    MOVEMENT
 }
