@@ -1,7 +1,13 @@
 package com.gamealgorithms.games
 
 class AaduPuliAatamBoard {
-    private val board = Array(23) { 0 }
+    var board = Array(23) { index ->
+        if (index in 0..2) {
+            BoardPiece.TIGER // Top 3 positions tigers
+        } else {
+            BoardPiece.EMPTY
+        }
+    }
 
     private val MOVES = mapOf(
         0 to listOf(2, 3, 4, 5),
@@ -61,8 +67,8 @@ class AaduPuliAatamBoard {
      * @return true if valid placement else false
      */
     fun placeGoat(position: Int): Boolean {
-        if (goatsLeftToPlace > 0 && board[position] == 0) {
-            board[position] = 1
+        if (goatsLeftToPlace > 0 && board[position] == BoardPiece.EMPTY) {
+            board[position] = BoardPiece.GOAT
             goatsLeftToPlace--
             return true
         }
@@ -76,4 +82,10 @@ class AaduPuliAatamBoard {
 enum class BoardState {
     POSITIONING,
     MOVEMENT
+}
+
+enum class BoardPiece {
+    EMPTY,
+    TIGER,
+    GOAT
 }
