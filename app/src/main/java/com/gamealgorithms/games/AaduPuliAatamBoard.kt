@@ -77,6 +77,37 @@ class AaduPuliAatamBoard {
         }
         return false
     }
+
+    /**
+     * @return true if valid position else false
+     */
+    fun moveGoat(currPosition: Int, finalPosition: Int): Boolean {
+        if (board[currPosition] == BoardPiece.GOAT &&
+            board[finalPosition] == BoardPiece.EMPTY &&
+            MOVES[currPosition]?.contains(finalPosition) == true
+        ) {
+            board[currPosition] = BoardPiece.EMPTY
+            board[finalPosition] = BoardPiece.GOAT
+            return true
+        }
+        return false
+    }
+
+    /**
+     * @return true if valid position else false
+     */
+    fun moveTiger(currPosition: Int, finalPosition: Int): Boolean {
+        if (board[currPosition] == BoardPiece.TIGER && board[finalPosition] == BoardPiece.EMPTY) {
+            if (MOVES[currPosition]?.contains(finalPosition) == true) {
+                board[currPosition] = BoardPiece.EMPTY
+                board[finalPosition] = BoardPiece.TIGER
+                return true
+            }  else {
+                // TODO CAPTURE GOAT
+            }
+        }
+        return false
+    }
 }
 
 enum class BoardState {
