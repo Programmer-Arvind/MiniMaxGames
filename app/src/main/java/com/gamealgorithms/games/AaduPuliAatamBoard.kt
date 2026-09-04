@@ -2,7 +2,7 @@ package com.gamealgorithms.games
 
 class AaduPuliAatamBoard {
     var board = Array(23) { index ->
-        if (index in 0..2) {
+        if (index in listOf(0, 3, 4)) {
             BoardPiece.TIGER // Top 3 positions tigers
         } else {
             BoardPiece.EMPTY
@@ -62,6 +62,7 @@ class AaduPuliAatamBoard {
     )
     private var boardState = BoardState.POSITIONING
     private var goatsLeftToPlace = 15
+    private var goatsCaptured = 0
 
     /**
      * @return true if valid placement else false
@@ -101,12 +102,22 @@ class AaduPuliAatamBoard {
             if (MOVES[currPosition]?.contains(finalPosition) == true) {
                 board[currPosition] = BoardPiece.EMPTY
                 board[finalPosition] = BoardPiece.TIGER
-                return true
-            }  else {
-                // TODO CAPTURE GOAT
+            }  else if (board[jumpOverPosition(currPosition, finalPosition)] == BoardPiece.GOAT) {
+                board[currPosition] = BoardPiece.EMPTY
+                board[jumpOverPosition(currPosition, finalPosition)] = BoardPiece.EMPTY
+                board[finalPosition] = BoardPiece.TIGER
+                goatsCaptured++
             }
+            return true
         }
         return false
+    }
+
+    /**
+     * @return The index that the tiger jumps over, given the initial and final position of tiger
+     */
+    fun jumpOverPosition(tigerInitialPos: Int, tigerFinalPos: Int): Int {
+        return CAPTURES[tigerInitialPos]!!.filter{it.second == tigerFinalPos}[0].first
     }
 }
 
