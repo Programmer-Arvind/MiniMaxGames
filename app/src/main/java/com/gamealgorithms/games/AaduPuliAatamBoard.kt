@@ -124,11 +124,12 @@ class AaduPuliAatamBoard {
         fun pieceAtPos(pos: Int): String {
             return pieceToChar(board[pos])
         }
-        val str = "        ${pieceAtPos(0)}" +
-                "  ${pieceAtPos(1)} ${pieceAtPos(2)} ${pieceAtPos(3)} ${pieceAtPos(4)} ${pieceAtPos(5)} ${pieceAtPos(6)}" +
-                " ${pieceAtPos(7)} ${pieceAtPos(8)} ${pieceAtPos(9)} ${pieceAtPos(10)} ${pieceAtPos(11)} ${pieceAtPos(12)}   " +
-                "${pieceAtPos(13)} ${pieceAtPos(14)} ${pieceAtPos(15)} ${pieceAtPos(16)} ${pieceAtPos(17)} ${pieceAtPos(18)} " +
-                "   ${pieceAtPos(20)} ${pieceAtPos(21)} ${pieceAtPos(22)}"
+        val str = "       ${pieceAtPos(0)}\n" +
+                "     / ▲ \\ \n"+
+                "  ${pieceAtPos(1)} ${pieceAtPos(2)} ${pieceAtPos(3)} ${pieceAtPos(4)} ${pieceAtPos(5)} ${pieceAtPos(6)}\n" +
+                " ${pieceAtPos(7)} ${pieceAtPos(8)} ${pieceAtPos(9)}   ${pieceAtPos(10)} ${pieceAtPos(11)} ${pieceAtPos(12)}   \n" +
+                "${pieceAtPos(13)} ${pieceAtPos(14)} ${pieceAtPos(15)}     ${pieceAtPos(16)} ${pieceAtPos(17)} ${pieceAtPos(18)} \n" +
+                " ${pieceAtPos(19)} ${pieceAtPos(20)}       ${pieceAtPos(21)} ${pieceAtPos(22)}\n"
         return str
     }
 }
