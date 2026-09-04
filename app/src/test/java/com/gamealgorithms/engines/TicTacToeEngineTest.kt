@@ -8,13 +8,13 @@ class TicTacToeEngineTest {
     @Test
     fun emptyBoardAvailableMoves() {
         val board = TicTacToeBoard()
-        val ticTacToeEngine = TicTacToeEngine(board)
+        val ticTacToeEngine = TicTacToeEngine()
         val expected = mutableListOf<List<Int>>(
             listOf(0, 0), listOf(0, 1), listOf(0, 2),
             listOf(1, 0), listOf(1, 1), listOf(1, 2),
             listOf(2, 0), listOf(2, 1), listOf(2, 2)
         )
-        assertEquals(expected,ticTacToeEngine.getAvailableMoves())
+        assertEquals(expected,ticTacToeEngine.getAvailableMoves(board))
     }
 
     @Test
@@ -29,8 +29,8 @@ class TicTacToeEngineTest {
         board.placeX(2, 1)
         board.placeX(2, 2)
 
-        val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(mutableListOf<List<Int>>(listOf(2,0)), ticTacToeEngine.getAvailableMoves())
+        val ticTacToeEngine = TicTacToeEngine()
+        assertEquals(mutableListOf(listOf(2,0)), ticTacToeEngine.getAvailableMoves(board))
     }
 
     @Test
@@ -47,8 +47,8 @@ class TicTacToeEngineTest {
 //        x x _
 //        _ o o
 
-        val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove().subList(0, 2))
+        val ticTacToeEngine = TicTacToeEngine()
+        assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove(board).subList(0, 2))
         // Y Player 1, 2
         /*board.placeO(0, 0)
         board.placeO(0, 1)
@@ -84,8 +84,8 @@ class TicTacToeEngineTest {
         // x o _
         // _ _ x
 
-        val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove().subList(0, 2))
+        val ticTacToeEngine = TicTacToeEngine()
+        assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove(board).subList(0, 2))
     }
 
     @Test
@@ -101,8 +101,8 @@ class TicTacToeEngineTest {
         // o x _
         // _ _ o
 
-        val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(2, 1), ticTacToeEngine.findBestMove().subList(0, 2))
+        val ticTacToeEngine = TicTacToeEngine()
+        assertEquals(listOf(2, 1), ticTacToeEngine.findBestMove(board).subList(0, 2))
     }
 
     @Test
@@ -119,8 +119,8 @@ class TicTacToeEngineTest {
         // x o o
         // x _ x
 
-        val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(2, 1), ticTacToeEngine.findBestMove().subList(0, 2))
+        val ticTacToeEngine = TicTacToeEngine()
+        assertEquals(listOf(2, 1), ticTacToeEngine.findBestMove(board).subList(0, 2))
     }
 
     @Test
@@ -136,8 +136,8 @@ class TicTacToeEngineTest {
         // o x _
         // x o _
         // o x x
-        val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(0,2), ticTacToeEngine.findBestMove().subList(0, 2))
+        val ticTacToeEngine = TicTacToeEngine()
+        assertEquals(listOf(0,2), ticTacToeEngine.findBestMove(board).subList(0, 2))
     }
 
     @Test
@@ -153,8 +153,8 @@ class TicTacToeEngineTest {
         // o x o
         // _ x x
         // o _ x
-        val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(1, 0), ticTacToeEngine.findBestMove().subList(0, 2))
+        val ticTacToeEngine = TicTacToeEngine()
+        assertEquals(listOf(1, 0), ticTacToeEngine.findBestMove(board).subList(0, 2))
     }
 
     @Test
@@ -169,8 +169,8 @@ class TicTacToeEngineTest {
         // _ x _
         // _ _ o
 
-        val ticTacToeEngine = TicTacToeEngine(board)
-        assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove().subList(0, 2))
+        val ticTacToeEngine = TicTacToeEngine()
+        assertEquals(listOf(1, 2), ticTacToeEngine.findBestMove(board).subList(0, 2))
     }
 
     @Test
@@ -178,7 +178,7 @@ class TicTacToeEngineTest {
         val board = TicTacToeBoard()
         board.placeX(1, 1)
 
-        val ticTacToeEngine = TicTacToeEngine(board)
-        print(ticTacToeEngine.findBestMove())
+        val ticTacToeEngine = TicTacToeEngine()
+        print(ticTacToeEngine.findBestMove(board))
     }
 }
