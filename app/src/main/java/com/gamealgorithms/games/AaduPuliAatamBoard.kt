@@ -119,6 +119,18 @@ class AaduPuliAatamBoard {
     fun jumpOverPosition(tigerInitialPos: Int, tigerFinalPos: Int): Int {
         return CAPTURES[tigerInitialPos]!!.filter{it.second == tigerFinalPos}[0].first
     }
+
+    override fun toString(): String {
+        fun pieceAtPos(pos: Int): String {
+            return pieceToChar(board[pos])
+        }
+        val str = "        ${pieceAtPos(0)}" +
+                "  ${pieceAtPos(1)} ${pieceAtPos(2)} ${pieceAtPos(3)} ${pieceAtPos(4)} ${pieceAtPos(5)} ${pieceAtPos(6)}" +
+                " ${pieceAtPos(7)} ${pieceAtPos(8)} ${pieceAtPos(9)} ${pieceAtPos(10)} ${pieceAtPos(11)} ${pieceAtPos(12)}   " +
+                "${pieceAtPos(13)} ${pieceAtPos(14)} ${pieceAtPos(15)} ${pieceAtPos(16)} ${pieceAtPos(17)} ${pieceAtPos(18)} " +
+                "   ${pieceAtPos(20)} ${pieceAtPos(21)} ${pieceAtPos(22)}"
+        return str
+    }
 }
 
 enum class BoardState {
@@ -130,4 +142,12 @@ enum class BoardPiece {
     EMPTY,
     TIGER,
     GOAT
+}
+
+fun pieceToChar(piece: BoardPiece): String {
+    return when (piece) {
+        BoardPiece.GOAT -> "G"
+        BoardPiece.TIGER -> "T"
+        BoardPiece.EMPTY -> "-"
+    }
 }
