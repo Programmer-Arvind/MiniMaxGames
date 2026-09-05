@@ -120,6 +120,30 @@ class AaduPuliAatamBoard {
         return CAPTURES[tigerInitialPos]!!.filter{it.second == tigerFinalPos}[0].first
     }
 
+    /**
+     * @return 1 if Tiger wins, -1 if Goat wins, null if game in progress
+     */
+    fun result(): Int? {
+        if (goatsCaptured == 5) {
+            return 1
+        }
+        for ((ind, piece) in board.withIndex()) {
+            if (piece == BoardPiece.TIGER) {
+                // Neighbouring nodes blocked and tigers cannot capture the goat
+                var blocked = true
+                for (pos in MOVES[ind]!!) {
+                    if (board[pos] != BoardPiece.GOAT && board[CAPTURES[ind]!!.filter{it.first == pos}[0].second] != BoardPiece.EMPTY) {
+                        blocked = false
+                    } // Possible errors another tiger can capture the goat, one tiger blocking another tiger
+                }
+                if (!blocked) {
+                    return -1
+                }
+            }
+        }
+        return null
+    }
+
     override fun toString(): String {
         fun pieceAtPos(pos: Int): String {
             return pieceToChar(board[pos])
